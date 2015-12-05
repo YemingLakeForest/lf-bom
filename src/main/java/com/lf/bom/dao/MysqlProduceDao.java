@@ -2,13 +2,13 @@ package com.lf.bom.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,49 +31,48 @@ public class MysqlProduceDao implements ProduceDao {
     @Value("${mysql.password}")
     private String mysqlPassword;
 
+    @Autowired
+    private Runtime runtime;
+
+    @Resource(name = "now")
+    private String now;
+
     @Override
     public List<String> produce() {
 
-        List<String> backedupFilenames = new ArrayList<>();
+        List<String> backedUpFilenames = new ArrayList<>();
 
         for (String database : databases) {
 
             String backedFile = dumpData(database);
             if (backedFile != null) {
-                backedupFilenames.add(backedFile);
+                backedUpFilenames.add(backedFile);
                 LOGGER.info("Backed up file: {}", backedFile);
             }
         }
 
-        return backedupFilenames;
+        return backedUpFilenames;
     }
 
     private String dumpData(String database) {
 
         try {
 
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-            String formattedNow = now.format(formatter);
+            String backedUpFilename = destinationLocation + database + "." + now + ".sql";
 
             String command = mysqlDumpPath + " -u" +
                     mysqlUsername + " -p" +
-                    mysqlPassword + " " +  database + " > " +
-                    destinationLocation + database + "." + formattedNow + ".sql";
+                    mysqlPassword + " " +  database + " > " + backedUpFilename;
 
             LOGGER.debug("Mysql dump command: " + command);
 
             String[] commands = new String[] {"cmd.exe", "/c", command};
 
-
-            Process exec = Runtime.getRuntime().exec(commands);
+            Process exec = runtime.exec(commands);
 
             if (exec.waitFor() == 0) {
-                InputStream inputStream = exec.getInputStream();
-                byte[] buffer = new byte[inputStream.available()];
-                int a = inputStream.read(buffer);
-                LOGGER.info("Mysql dump success with [{}]", a);
-                return destinationLocation + database + ".sql";
+                LOGGER.info("Mysql dump success with");
+                return backedUpFilename;
             } else {
                 InputStream errorStream = exec.getErrorStream();
                 byte[] buffer = new byte[errorStream.available()];
