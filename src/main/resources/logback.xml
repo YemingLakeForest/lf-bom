@@ -6,7 +6,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>../logs/lf-bom.%i.log.zip</fileNamePattern>
             <minIndex>1</minIndex>
-            <maxIndex>3</maxIndex>
+            <maxIndex>100</maxIndex>
         </rollingPolicy>
 
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
@@ -24,7 +24,7 @@
         </encoder>
     </appender>
 
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>
     </root>
