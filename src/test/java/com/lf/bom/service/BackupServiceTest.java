@@ -8,7 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,10 +28,10 @@ public class BackupServiceTest {
 
     @Test
     public void backupServiceFlowTest() {
-        File file = new File("");
-        when(mockProduceDao.produceBackup()).thenReturn(file);
+        List<String> filenames = new ArrayList<>();
+        when(mockProduceDao.produce()).thenReturn(filenames);
         backupService.run();
-        verify(mockCommitDao).commit(file);
+        verify(mockCommitDao).commit(filenames);
     }
 
 }

@@ -1,9 +1,9 @@
 package com.lf.bom.dao;
 
-import java.io.File;
+import java.util.List;
 
 public interface CommitDao {
 
-    void commit(File file);
+    void commit(List<String> filenames);
 
 }

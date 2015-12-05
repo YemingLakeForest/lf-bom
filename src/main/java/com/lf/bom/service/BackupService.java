@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
+import java.util.List;
 
 @Service
 public class BackupService {
@@ -21,8 +21,8 @@ public class BackupService {
     private CommitDao commitDao;
 
     public void run() {
-        File backedUpFile = produceDao.produceBackup();
-        commitDao.commit(backedUpFile);
+        List<String> backedUpFilenames = produceDao.produce();
+        commitDao.commit(backedUpFilenames);
     }
 
 }

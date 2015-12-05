@@ -2,13 +2,13 @@ package com.lf.bom.dao;
 
 import org.springframework.stereotype.Component;
 
-import java.io.File;
+import java.util.List;
 
 @Component("mysqlProduceDao")
 public class MysqlProduceDao implements ProduceDao {
 
     @Override
-    public File produceBackup() {
+    public List<String> produce() {
         return null;
     }
 }

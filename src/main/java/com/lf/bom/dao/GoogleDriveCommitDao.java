@@ -2,12 +2,12 @@ package com.lf.bom.dao;
 
 import org.springframework.stereotype.Component;
 
-import java.io.File;
+import java.util.List;
 
 @Component("googleDriveCommitDao")
 public class GoogleDriveCommitDao implements CommitDao {
     @Override
-    public void commit(File file) {
+    public void commit(List<String> filenames) {
 
     }
 }
