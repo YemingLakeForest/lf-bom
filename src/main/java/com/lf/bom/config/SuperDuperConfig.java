@@ -6,7 +6,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @ComponentScan("com.lf.bom")
-@Import({BackupProduceConfig.class})
+@Import({BackupProduceConfig.class, GoogleDriveConfig.class})
 @PropertySource(value={"classpath:common.properties"})
 public class SuperDuperConfig {
 

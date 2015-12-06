@@ -33,6 +33,8 @@ public class BackupService {
         LOGGER.info("Produced {} backup files.", backedUpFilenames.size());
 
         commitDao.commit(backedUpFilenames);
+
+        LOGGER.info("All done and checking out...");
     }
 
 }
