@@ -25,7 +25,7 @@ public class BackupService {
     @Qualifier("googleDriveCommitDao")
     private CommitDao commitDao;
 
-    @Scheduled(cron="0 0 12 * * *")
+    @Scheduled(cron="${backup.schedule}")
     public void run() {
 
         LOGGER.info("Producing backup files...");
