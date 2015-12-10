@@ -13,4 +13,12 @@
         </dependencySet>
     </dependencySets>
 
+    <fileSets>
+        <fileSet>
+            <directory>bin</directory>
+            <outputDirectory>/</outputDirectory>
+            <filtered>true</filtered>
+        </fileSet>
+    </fileSets>
+
 </assembly>
